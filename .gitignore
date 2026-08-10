@@ -1,0 +1,23 @@
+# Datasets
+Dataset/
+clinical_dataset/
+
+# Trained models
+models/*.pth
+models/*.pt
+models/*.pkl
+
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv/
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
