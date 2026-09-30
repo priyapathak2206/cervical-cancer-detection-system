@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cervical Cell Detection</title>
+    <link rel="stylesheet" href="./static/style.css">
+</head>
+<body>
+    <header class="top-header">
+        <div class="header-content">
+            <div class="header-left">
+                <h1>Cervical Cell Detection</h1>
+                <p>AI-powered cervical cell image analysis</p>
+            </div>
+            <div class="header-right">
+                <span>Image Analysis</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+        <div class="page-heading">
+            <h2>Cervical Cell Analysis</h2>
+            <p>Upload a cervical-cell image and analyze it using the trained image classification model.</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- LEFT CARD -->
+            <div class="card left-card">
+                <div class="card-title">Image Input</div>
+                <div class="card-body">
+                    <h3>Upload cervical cell image</h3>
+                    
+                    <div id="dropZone" class="upload-zone">
+                        <div class="upload-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                        </div>
+                        <p class="drag-text">Drag and drop your image here</p>
+                        <p class="or-text">or</p>
+                        <button type="button" id="selectImageBtn" class="btn primary-button">Choose Image</button>
+                        <p class="formats-text">Supported formats:<br>BMP, JPG, JPEG, PNG</p>
+                        <input type="file" id="imageInput" accept=".bmp,.jpg,.jpeg,.png,image/bmp,image/jpeg,image/png" hidden>
+                    </div>
+
+                    <div id="previewContainer" class="preview-container hidden">
+                        <h3>Selected Image</h3>
+                        <div class="image-wrapper">
+                            <img id="imagePreview" src="" alt="Selected cervical cell">
+                        </div>
+                        <p id="fileName" class="file-name"></p>
+                        <div class="action-buttons">
+                            <button type="button" id="changeImageBtn" class="btn secondary-button">Change Image</button>
+                            <button type="button" id="analyzeBtn" class="btn primary-button">Analyze Image</button>
+                        </div>
+                    </div>
+
+                    <div id="errorMessage" class="error-alert hidden"></div>
+                </div>
+            </div>
+
+            <!-- RIGHT CARD -->
+            <div class="card right-card">
+                <div class="card-title">
+                    AI Analysis
+                    <span id="statusBadge" class="status-badge hidden"></span>
+                </div>
+                <div class="card-body">
+                    
+                    <div id="emptyResult" class="empty-state">
+                        <div class="empty-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="16" x2="12" y2="12"></line>
+                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                            </svg>
+                        </div>
+                        <h3>Waiting for image</h3>
+                        <p>Upload an image to begin analysis.</p>
+                    </div>
+
+                    <div id="loading" class="loading-state hidden">
+                        <div class="spinner"></div>
+                        <p>Analyzing image...</p>
+                    </div>
+
+                    <div id="resultContainer" class="result-content hidden">
+                        <div class="prediction-section">
+                            <span class="section-label">Prediction</span>
+                            <h2 id="prediction">-</h2>
+                            <div class="confidence-box">
+                                <span>Confidence</span>
+                                <strong id="confidence">-</strong>
+                            </div>
+                        </div>
+
+                        <div class="probability-section">
+                            <span class="section-label">Probability</span>
+                            
+                            <div class="prob-row">
+                                <div class="prob-labels">
+                                    <span>Abnormal</span>
+                                    <span id="abnormalProbability">0%</span>
+                                </div>
+                                <div class="prob-bar-bg">
+                                    <div id="abnormalBar" class="prob-bar fill-abnormal"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="prob-row">
+                                <div class="prob-labels">
+                                    <span>Normal</span>
+                                    <span id="normalProbability">0%</span>
+                                </div>
+                                <div class="prob-bar-bg">
+                                    <div id="normalBar" class="prob-bar fill-normal"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="explanationSection" class="explanation-section hidden">
+                            <span class="section-label">Model Explanation</span>
+                            <p class="explanation-text">Grad-CAM highlights the image regions that contributed to the model prediction.</p>
+                            <div id="gradcamContainer" class="gradcam-wrapper">
+                                <img id="gradcamImage" src="" alt="Grad-CAM highlighting important regions">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="./static/script.js"></script>
+</body>
+</html>
